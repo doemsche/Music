@@ -1,6 +1,7 @@
 
 
-require './MusicTheory.rb'
+require './Note.rb'
+require './Chord.rb'
 
 
 

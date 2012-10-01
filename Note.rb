@@ -30,7 +30,11 @@ module MusicTheory
       }
       id = id.downcase
 
-      octave = id.match(regex[:octave]).to_s.to_i
+      unless id.match(regex[:octave]) == nil
+        octave = id.match(regex[:octave]).to_s.to_i
+      else
+        octave = -1
+      end
 
       unless id.length > 1
       	name = id.match(regex[:name]).to_s
@@ -41,37 +45,21 @@ module MusicTheory
       
       #class variables are written here
       @name = name
-      @octave = octave -1
+      @octave = octave
       @midi_id = calculate_midi_id(@octave, @name)
     end
 
     def calculate_midi_id(octave, name)
-    	case name
-   		when "c"
-   			idx = 0
-   		when "c#"
-   			idx = 1
-   		when "d"
-   			idx = 2
-   		when "d#"
-   			idx = 3
-   		else
-   			puts "not supported"
-   		end
-   		puts name
-   		puts idx
-   		puts octave
-   		id = (idx + 12) * octave +1
-
+      idx = ["c","c#","d","d#","e","f","f#","g","g#","a","bb"].index(name)
+      id = ( ( 1 + octave ) *12 ) + idx
     end
 
     def process_options(options)
     	@length = options[:length]
     end
 
-
     def play_note
-
+      puts "play this note :" +@name.to_s+ "with this MIDI no"+ @midi_id.to_s
     end
     
   end
