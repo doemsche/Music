@@ -4,10 +4,10 @@ module MusicTheory
     
     attr_reader :name, :midi_id, :octave 
     
-    def initialize(id, options = {})
+    def initialize(id, octave = 4, options = {})
     	case id
     	  when Integer then process_integer(id)
-    	  when String then process_string(id)
+    	  when String then process_string(id,octave)
     	end
     	process_options(options)
     end
@@ -15,34 +15,23 @@ module MusicTheory
     def process_integer(id)
       octave, note = *id.divmod(12)
       name = %w{c c# d d# e f f# g g# a bb b}.at(note)
-
       #class variables are written here
       @name = name
       @octave = octave -1
       @midi_id = id
     end
 
-    def process_string(id)
+    def process_string(id,octave)
       regex = {
         :name => /^[c,d,e,f,g,a,b]/,
-        :name_accidental => /^[c#,d#,f#,g#,bb]./,
-        :octave => /\d+$/
+        :name_accidental => /^[c#,d#,f#,g#,bb]./
       }
       id = id.downcase
-
-      unless id.match(regex[:octave]) == nil
-        octave = id.match(regex[:octave]).to_s.to_i
-      else
-        octave = -1
-      end
-
       unless id.length > 1
-      	name = id.match(regex[:name]).to_s
-      	puts :name
+      	name = id.match(regex[:name]).to_s 
       else
       	name =id.match(regex[:name_accidental]).to_s
       end  
-      
       #class variables are written here
       @name = name
       @octave = octave
@@ -58,7 +47,7 @@ module MusicTheory
     	@length = options[:length]
     end
 
-    def play_note
+    def play
       puts "play this note :" +@name.to_s+ "with this MIDI no"+ @midi_id.to_s
     end
     
