@@ -54,13 +54,14 @@ module MusicTheory
 
 		end
 
-
 		def retrieve_notes(notes, pattern)
-			puts notes
-			puts pattern
-
-			
-
+			#puts notes
+			#puts pattern
+			chordnotes =[]
+			pattern.each do |i|
+				chordnotes.push( MusicTheory::Note.new(notes[i]) )
+			end
+			chordnotes
 		end
 
 	end
