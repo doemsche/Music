@@ -39,7 +39,7 @@ module MusicTheory
     end
 
     def calculate_midi_id(octave, name)
-      idx = ["c","c#","d","d#","e","f","f#","g","g#","a","bb"].index(name)
+      idx = ["c","c#","d","d#","e","f","f#","g","g#","a","bb","b"].index(name)
       id = ( ( 1 + octave ) *12 ) + idx
     end
 
