@@ -1,5 +1,4 @@
 module MusicTheory
-
 	class Scale
 
 		attr_reader :name, :type, :notes
